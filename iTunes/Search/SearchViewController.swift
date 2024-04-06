@@ -20,8 +20,15 @@ final class SearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+//        network()
     }
-    
+    func network() {
+        let query = "르세라핌".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        var urlRequest = URLRequest(url: URL(string: "https://itunes.apple.com/search?term=\(query)&country=KR")!)
+        urlRequest.setValue("XYZ", forHTTPHeaderField: "User-Agent")
+
+
+    }
     private func bind() {
 
         let input = SearchViewModel.Input(searchBarButtonClicked: mainView.searchBar.rx.searchButtonClicked,
@@ -33,9 +40,6 @@ final class SearchViewController: BaseViewController {
             .drive(mainView.tableView.rx.items(cellIdentifier: SearchTableViewCell.identifier, cellType: SearchTableViewCell.self)){(row, element, cell) in
                 cell.upgradeCell(element)
             }
-            .disposed(by: disposeBag)
-        
+            .disposed(by: disposeBag) 
     }
-    
-    
 }

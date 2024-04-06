@@ -8,9 +8,9 @@
 import Foundation
 import RxSwift
 import RxCocoa
-
+import Alamofire
 final class SearchViewModel {
-    private let data: [String] = ["a", "b", "c", "abc", "ab", "bc", "cc", "aa", "abcc"] // 더미
+    private let data: [Music] = [] // 더미
     private let disposeBag = DisposeBag()
     
     struct Input {
@@ -22,16 +22,22 @@ final class SearchViewModel {
     }
     
     struct Output {
-        let tableViewItems: Driver<[String]>
+        let tableViewItems: Driver<[Music]>
     }
     
     func transform(input: Input) -> Output {
-        let tableViewItems = BehaviorRelay<[String]>(value: data)
+        // 이벤트를 직접 만들어,,?ㅜ
+        
+        let tableViewItems = BehaviorRelay<[Music]>(value: data)
         // 검색하면
         input.searchBarButtonClicked
             .withLatestFrom(input.searchText.orEmpty)
+            .flatMap {
+                ITunesNetwork.shared.fetchBoxOfficeData(searchText: $0)
+            }
+            .debug()
             .subscribe(with: self) { owner, text in
-                let list = text == "" ? owner.data : owner.data.filter{$0.contains(text)}
+                let list = text.results
                 tableViewItems.accept(list)
                 
             }

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class SearchTableViewCell: UITableViewCell {
     private let iTunesImageView = {
@@ -60,12 +61,13 @@ class SearchTableViewCell: UITableViewCell {
         }
         getButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(iTunesTextLabel.snp.trailing).offset(4)
+            make.leading.greaterThanOrEqualTo(iTunesTextLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview().inset(10)
         }
     }
     
-    func upgradeCell(_ data: String) {
-        iTunesTextLabel.text = data
+    func upgradeCell(_ data: Music) {
+        iTunesImageView.kf.setImage(with: URL(string: data.image))
+        iTunesTextLabel.text = data.name
     }
 }
