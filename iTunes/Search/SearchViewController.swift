@@ -22,13 +22,7 @@ final class SearchViewController: BaseViewController {
         bind()
 //        network()
     }
-    func network() {
-        let query = "르세라핌".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        var urlRequest = URLRequest(url: URL(string: "https://itunes.apple.com/search?term=\(query)&country=KR")!)
-        urlRequest.setValue("XYZ", forHTTPHeaderField: "User-Agent")
 
-
-    }
     private func bind() {
 
         let input = SearchViewModel.Input(searchBarButtonClicked: mainView.searchBar.rx.searchButtonClicked,
@@ -41,5 +35,13 @@ final class SearchViewController: BaseViewController {
                 cell.upgradeCell(element)
             }
             .disposed(by: disposeBag) 
+        
+        mainView.tableView.rx.itemSelected
+            .bind(with: self) { owner, indexpath in
+                let vc = DetailViewController()
+                vc.musicData = owner.viewModel.data[indexpath.row]
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }

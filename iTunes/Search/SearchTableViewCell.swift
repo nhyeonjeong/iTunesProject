@@ -14,6 +14,7 @@ class SearchTableViewCell: UITableViewCell {
         let view = UIImageView(frame: .zero)
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 10
+        view.clipsToBounds = true
         return view
     }()
     private let iTunesTextLabel = {
