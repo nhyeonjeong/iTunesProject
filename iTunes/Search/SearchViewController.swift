@@ -20,7 +20,6 @@ final class SearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
-//        network()
     }
 
     private func bind() {
@@ -35,6 +34,13 @@ final class SearchViewController: BaseViewController {
                 cell.upgradeCell(element)
             }
             .disposed(by: disposeBag) 
+        
+        // 컬렉션뷰를 그리자(넘어오는 것은 Observable)
+        output.recentItems
+            .drive(mainView.collectionView.rx.items(cellIdentifier: RecentSearchCollectionViewCell.identifier, cellType: RecentSearchCollectionViewCell.self)) { (row, element, cell) in
+                cell.upgradeCell(element)
+            }
+            .disposed(by: disposeBag)
         
         mainView.tableView.rx.itemSelected
             .bind(with: self) { owner, indexpath in

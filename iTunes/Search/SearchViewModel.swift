@@ -11,6 +11,7 @@ import RxCocoa
 import Alamofire
 final class SearchViewModel {
     var data: [Music] = [] // 더미
+    var recentList: [String] = []
     private let disposeBag = DisposeBag()
     
     struct Input {
@@ -23,13 +24,17 @@ final class SearchViewModel {
     
     struct Output {
         let tableViewItems: Driver<[Music]>
+        let recentItems: Driver<[String]>
     }
     
     func transform(input: Input) -> Output {
         let tableViewItems = BehaviorRelay<[Music]>(value: data)
+        let recentItems = BehaviorRelay<[String]>(value: recentList)
         // 검색하면
-        input.searchBarButtonClicked
+        let inputSearchBar = input.searchBarButtonClicked
             .withLatestFrom(input.searchText.orEmpty)
+        
+        inputSearchBar
             .flatMap {
                 ITunesNetwork.shared.fetchBoxOfficeData(searchText: $0)
             }
@@ -37,10 +42,15 @@ final class SearchViewModel {
             .subscribe(with: self) { owner, text in
                 owner.data = text.results
                 tableViewItems.accept(owner.data)
-                
             }
             .disposed(by: disposeBag)
 
-        return Output(tableViewItems: tableViewItems.asDriver())
+        inputSearchBar
+            .subscribe(with: self) { owner, text in
+                owner.recentList.append(text)
+                recentItems.accept(owner.recentList)
+            }
+            .disposed(by: disposeBag)
+        return Output(tableViewItems: tableViewItems.asDriver(), recentItems: recentItems.asDriver())
     }
 }

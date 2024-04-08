@@ -17,6 +17,7 @@ final class SearchView: BaseView {
         return view
     }()
     let searchBar = UISearchBar()
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
     let tableView = {
         let view = UITableView()
         view.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
@@ -25,7 +26,7 @@ final class SearchView: BaseView {
     }()
     
     override func configureHierarchy() {
-        addviews([titleLabel, searchBar, tableView])
+        addviews([titleLabel, searchBar, collectionView, tableView])
     }
     override func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
@@ -37,14 +38,28 @@ final class SearchView: BaseView {
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
         }
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(40)
+        }
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(4)
+            make.top.equalTo(collectionView.snp.bottom).offset(4)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
     override func configureView() {
         searchBar.placeholder = "게임, 앱, 스토리 등"
+        collectionView.register(RecentSearchCollectionViewCell.self, forCellWithReuseIdentifier: RecentSearchCollectionViewCell.identifier)
     }
 
+}
+extension SearchView {
+    func configureLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 100, height: 40)
+        layout.scrollDirection = .horizontal
+        return layout
+    }
 }

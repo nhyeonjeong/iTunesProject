@@ -30,6 +30,7 @@
 		8B428C0A2BC3511F00FD1B69 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B428C092BC3511F00FD1B69 /* DetailView.swift */; };
 		8B428C0C2BC3512A00FD1B69 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B428C0B2BC3512A00FD1B69 /* DetailViewModel.swift */; };
 		8B428C0E2BC3513700FD1B69 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B428C0D2BC3513700FD1B69 /* DetailViewController.swift */; };
+		8B428C102BC3724500FD1B69 /* RecentSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B428C0F2BC3724500FD1B69 /* RecentSearchCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		8B428C092BC3511F00FD1B69 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		8B428C0B2BC3512A00FD1B69 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		8B428C0D2BC3513700FD1B69 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8B428C0F2BC3724500FD1B69 /* RecentSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				8B428BEF2BC1805900FD1B69 /* SearchViewModel.swift */,
 				8B428BF12BC1806100FD1B69 /* SearchView.swift */,
 				8B428BFB2BC1885500FD1B69 /* SearchTableViewCell.swift */,
+				8B428C0F2BC3724500FD1B69 /* RecentSearchCollectionViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				8B428BE82BC1424B00FD1B69 /* BaseView.swift in Sources */,
 				8B428BD12BC141B800FD1B69 /* AppDelegate.swift in Sources */,
 				8B428C0E2BC3513700FD1B69 /* DetailViewController.swift in Sources */,
+				8B428C102BC3724500FD1B69 /* RecentSearchCollectionViewCell.swift in Sources */,
 				8B428BD32BC141B800FD1B69 /* SceneDelegate.swift in Sources */,
 				8B428BFC2BC1885500FD1B69 /* SearchTableViewCell.swift in Sources */,
 			);
