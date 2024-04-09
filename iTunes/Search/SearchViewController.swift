@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast
 import RxSwift
 import RxCocoa
 
@@ -39,6 +40,13 @@ final class SearchViewController: BaseViewController {
         output.recentItems
             .drive(mainView.collectionView.rx.items(cellIdentifier: RecentSearchCollectionViewCell.identifier, cellType: RecentSearchCollectionViewCell.self)) { (row, element, cell) in
                 cell.upgradeCell(element)
+            }
+            .disposed(by: disposeBag)
+        
+        // 통신오류있다면 에러메세지
+        output.errorMessage
+            .drive(with: self) { owner, message in
+                owner.view.makeToast(message, duration: 1.0, position: .top) 
             }
             .disposed(by: disposeBag)
         
