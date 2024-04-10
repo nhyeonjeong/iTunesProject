@@ -15,7 +15,6 @@ enum ItunesError: Error {
     case unknownResponse
     case statusError
     case decodeError
-    
     var errorMessage: String {
         switch self {
         case .invalidURL :
